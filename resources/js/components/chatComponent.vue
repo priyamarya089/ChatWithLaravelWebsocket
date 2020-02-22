@@ -83,8 +83,8 @@
         },
         created() {
             this.fetchMessages(1);
-            window.Echo.join('chatroom')
-                .here(user => {
+            var channel = window.Echo.join('chatroom')
+             window.Echo.join('chatroom').here(user => {
                     this.users = user;
                 })
                 .joining(user => {
@@ -93,16 +93,9 @@
                 .leaving(user => {
                     this.users = this.users.filter(u => u.id != user.id);
                 })
-                .listen('.messageEvent', (event) => {
-                    alert("working");
-                    console.log(event);
-                    this.messages.push(event);
+                .listen('.my-event', (event) => {
+                    this.messages.push(event.message);
                 })
-                // .listenForWhisper('messaging', (  usermessag  ) => {
-                //    console.log("cdSCV");
-                //    console.log(usermessag);
-                // //    this.messages.push(usermessag);
-                // })
                 .listenForWhisper('typing', ( { type , user } ) => {
                    this.activeUser = user;
                    this.typingmessage = type;
@@ -132,16 +125,6 @@
                     user: this.user,
                     message: this.newMessage
                 });
-                
-                // Echo.join('chatroom')
-                //     .whisper('messaging', { usermessag : this.newMessage }  );
-                
-                // window.Echo.join('chatroom')
-                //     .listen('messageEvent', (e) =>{
-                //         console.log("called");
-                //     } );
-                
-
 
                 axios.post('/messages', {message: this.newMessage , to : this.to});
                

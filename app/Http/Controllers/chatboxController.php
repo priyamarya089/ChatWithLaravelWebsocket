@@ -36,7 +36,7 @@ class chatboxController extends Controller
 
             // $this->message = "Hello";
             // $event = event(new \App\Events\messageEvent($message) );
-            broadcast(new messageEvent( $message ));
+            broadcast(new messageEvent( $message ))->toOthers();
 
         // return $message;
         // Log::info($event);

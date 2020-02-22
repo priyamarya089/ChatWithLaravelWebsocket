@@ -1993,6 +1993,7 @@ var to;
     var _this = this;
 
     this.fetchMessages(1);
+    var channel = window.Echo.join('chatroom');
     window.Echo.join('chatroom').here(function (user) {
       _this.users = user;
     }).joining(function (user) {
@@ -2001,17 +2002,9 @@ var to;
       _this.users = _this.users.filter(function (u) {
         return u.id != user.id;
       });
-    }).listen('.messageEvent', function (event) {
-      alert("working");
-      console.log(event);
-
-      _this.messages.push(event);
-    }) // .listenForWhisper('messaging', (  usermessag  ) => {
-    //    console.log("cdSCV");
-    //    console.log(usermessag);
-    // //    this.messages.push(usermessag);
-    // })
-    .listenForWhisper('typing', function (_ref) {
+    }).listen('.my-event', function (event) {
+      _this.messages.push(event.message);
+    }).listenForWhisper('typing', function (_ref) {
       var type = _ref.type,
           user = _ref.user;
       _this.activeUser = user;
@@ -2039,13 +2032,7 @@ var to;
       this.messages.push({
         user: this.user,
         message: this.newMessage
-      }); // Echo.join('chatroom')
-      //     .whisper('messaging', { usermessag : this.newMessage }  );
-      // window.Echo.join('chatroom')
-      //     .listen('messageEvent', (e) =>{
-      //         console.log("called");
-      //     } );
-
+      });
       axios.post('/messages', {
         message: this.newMessage,
         to: this.to
@@ -59884,8 +59871,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Xmp\htdocs\laravel\laravelWebsocket\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Xmp\htdocs\laravel\laravelWebsocket\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Xmp\htdocs\laravel\laravelWebsocket1\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Xmp\htdocs\laravel\laravelWebsocket1\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
